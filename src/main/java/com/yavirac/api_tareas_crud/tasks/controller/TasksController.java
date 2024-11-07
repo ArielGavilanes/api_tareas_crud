@@ -25,7 +25,7 @@ public class TasksController {
     @Autowired
     private TasksService tasksService;
 
-    @GetMapping("/")
+    @GetMapping("")
     @ResponseBody
     public ResponseEntity<List<Task>> getAllTasks() {
         List<Task> tasks = tasksService.getAllTasks();
@@ -43,12 +43,11 @@ public class TasksController {
         return ResponseEntity.ok(task);
     }
 
-    @PostMapping("/create")
+    @PostMapping("")
     @ResponseBody
     public ResponseEntity<Task> createTask(@RequestBody Task newTask) {
         Task taskCreated = tasksService.createTask(newTask);
         return ResponseEntity.status(HttpStatus.CREATED).body(taskCreated);
-
     }
 
     @PutMapping("/{id}")
