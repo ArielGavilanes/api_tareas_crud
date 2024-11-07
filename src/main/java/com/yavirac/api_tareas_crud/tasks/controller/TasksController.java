@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,8 +60,8 @@ public class TasksController {
 
     @DeleteMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<void> deleteTask(@PathVariable Long id) {
-        Task deleteTask = taskService.deleteTask(id);
-        ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+        tasksService.deleteTask(id);
+        return ResponseEntity.noContent().build();
     }
 }
