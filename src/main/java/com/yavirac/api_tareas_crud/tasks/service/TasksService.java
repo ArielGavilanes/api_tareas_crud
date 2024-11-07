@@ -17,5 +17,8 @@ public class TasksService {
     public List<Tasks> getAllTasks() {
         return tasksRepository.findAll();
     }
-
+    
+    public Tasks findById(Long id) {
+        return tasksRepository.findById(id).orElse(null);
+    }
 }
