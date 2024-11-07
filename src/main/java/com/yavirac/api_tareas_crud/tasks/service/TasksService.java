@@ -21,4 +21,8 @@ public class TasksService {
     public Tasks findTaskById(Long id) {
         return tasksRepository.findById(id).orElse(null);
     }
+
+    public Tasks createTask(Tasks newTask ){
+        return tasksRepository.save(newTask);
+    }
 }
