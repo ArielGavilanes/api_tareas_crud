@@ -20,7 +20,7 @@ public class Task {
     @Column(name = "name", nullable = false)
     private String name;
     
-    @Column(name = "descripction", nullable = false)
-    private String descripction;
+    @Column(name = "description", nullable = false)
+    private String description;
 
 }
