@@ -21,10 +21,10 @@ public class TasksController {
     public List<Tasks> getAllTasks() {
         return tasksService.getAllTasks();
     }
-    
+
     @GetMapping("/{id}")
-    public Tasks findById (@PathVariable Long id) {
-        return tasksService.findById(id);
+    public Tasks findTaskById(@PathVariable Long id) {
+        return tasksService.findTaskById(id);
     }
 
 }
