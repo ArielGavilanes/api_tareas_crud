@@ -18,7 +18,7 @@ public class TasksController {
 
     @GetMapping("/")
     public List<Tasks> getAllTasks() {
-        return tasksService.getAll();
+        return tasksService.getAllTasks();
     }
 
 }
