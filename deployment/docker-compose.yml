@@ -1,0 +1,52 @@
+version: "3.8"
+services:
+  tareasCrud:
+    image: tareas:1
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    ports:
+      - target: 9142
+        published: 9142
+        protocol: tcp
+        mode: host
+    networks:
+      - tareas_net
+      - traefik-public
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.tareasCrud.entrypoints=http"
+        - "traefik.http.routers.tareasCrud.rule=Host(`tareasCrud.byronrm.com`)"
+        - "traefik.http.middlewares.tareasCrud-https-redirect.redirectscheme.scheme=https"
+        - "traefik.http.routers.tareasCrud.middlewares=portainer-https-redirect"
+        - "traefik.http.routers.tareasCrud-secure.entrypoints=https"
+        - "traefik.http.routers.tareasCrud-secure.rule=Host(`tareasCrud.byronrm.com`)"
+        - "traefik.http.routers.tareasCrud-secure.tls=true"
+        - "traefik.http.routers.tareasCrud-secure.tls.certresolver=http"
+        - "traefik.http.routers.tareasCrud-secure.service=tareasCrud"
+        - "traefik.http.services.tareasCrud.loadbalancer.server.port=8080"
+        - "traefik.docker.network=traefik-public"
+
+  tareasdb:
+    image: postgres:15.0-bullseye
+    environment:
+      - TZ=America/Guayaquil
+      - POSTGRES_DB=tareas
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - pg_tareasCrud_data:/var/lib/postgresql/data/pgdata
+    networks:
+      - tareas_net
+
+volumes:
+  pg_tareasCrud_data:
+    external: true
+
+networks:
+  tareas_net:
+    external: true
+
+  traefik-public:
+    external: true
